@@ -2,7 +2,7 @@ package com.ombremoon.playingcards.tileentity;
 
 import com.ombremoon.playingcards.init.InitTileEntityTypes;
 import com.ombremoon.playingcards.tileentity.base.TileEntityBase;
-import net.minecraft.core.BlockPos;
+import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -37,22 +37,34 @@ public class TileEntityPokerTable extends TileEntityBase {
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        ownerID = pTag.getUUID("OwnerID");
-        ownerName = pTag.getString("OwnerName");
-        super.load(pTag);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        ownerID = tag.getUUID("OwnerID");
+        ownerName = tag.getString("OwnerName");
+        super.loadAdditional(tag, registries);
     }
 
+
+
     @Override
-    public void saveAdditional(CompoundTag nbt) {
+    public void saveAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
         nbt.putUUID("OwnerID", ownerID);
         nbt.putString("OwnerName", ownerName);
-        super.saveAdditional(nbt);
+        super.saveAdditional(nbt, registries);
     }
 
     @Override
     protected Component getDefaultName() {
         return null;
+    }
+
+    @Override
+    protected NonNullList<ItemStack> getItems() {
+        return null;
+    }
+
+    @Override
+    protected void setItems(NonNullList<ItemStack> items) {
+
     }
 
     @Override
