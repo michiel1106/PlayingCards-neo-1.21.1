@@ -2,7 +2,7 @@ package com.ombremoon.playingcards.tileentity.base;
 
 import com.ombremoon.playingcards.util.Location;
 import com.ombremoon.playingcards.util.UnitChatMessage;
-import net.minecraft.core.BlockPos;
+import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
@@ -31,13 +31,14 @@ public abstract class TileEntityBase extends BaseContainerBlockEntity {
 
     @Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        load(pkt.getTag());
+        loadAdditional(pkt.getTag(), lookupProvider);
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag) {
-        load(tag);
+    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider lookupProvider) {
+        loadAdditional(tag, lookupProvider);
     }
+
 
     @Nullable
     @Override
